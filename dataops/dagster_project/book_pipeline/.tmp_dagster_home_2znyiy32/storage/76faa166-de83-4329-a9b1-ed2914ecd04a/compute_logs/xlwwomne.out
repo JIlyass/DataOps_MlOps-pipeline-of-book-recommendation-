@@ -1,0 +1,12 @@
+
+======================================================================
+>>> dbt test
+    cwd : /home/ilyass/S2-Master/MLOps_DataOps/Project_v2/dataops/dbt_project/book_transform
+    cmd : /home/ilyass/S2-Master/env_s2/bin/dbt test
+======================================================================
+--- dbt test STDOUT ---
+[0m12:56:40  Running with dbt=1.10.8
+[0m12:56:41  Registered adapter: duckdb=1.9.0
+[0m12:56:41  Found 6 models, 426 macros
+[0m12:56:41  Nothing to do. Try checking your model configs and model specification args
+

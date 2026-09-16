@@ -1,0 +1,41 @@
+
+======================================================================
+>>> dlt ingestion
+    cwd : /home/ilyass/S2-Master/MLOps_DataOps/Project_v2
+    cmd : /home/ilyass/S2-Master/env_s2/bin/python3 /home/ilyass/S2-Master/MLOps_DataOps/Project_v2/dataops/ingestion/ingest.py
+======================================================================
+--- dlt ingestion STDOUT ---
+[INFO] Donnees brutes : /home/ilyass/S2-Master/MLOps_DataOps/Project_v2/data/raw
+[INFO] Base DuckDB    : /home/ilyass/S2-Master/MLOps_DataOps/Project_v2/data/book_recommender.duckdb
+======================================================================
+[START] Ingestion des donnees
+======================================================================
+
+[INFO] Chargement : Books.csv -> table 'books'
+   Separateur detecte : ';'
+   [TRY 1] pandas engine='c' ...
+   [OK] engine='c' -> shape (271379, 8)
+   Colonnes : ['ISBN', 'Book-Title', 'Book-Author', 'Year-Of-Publication', 'Publisher', 'Image-URL-S', 'Image-URL-M', 'Image-URL-L']
+   Colonnes finales : ['isbn', 'book_title', 'book_author', 'year_of_publication', 'publisher', 'image_url_s', 'image_url_m', 'image_url_l']
+   [OK] Charge dans raw_data.books
+
+[INFO] Chargement : Users.csv -> table 'users'
+   Separateur detecte : ';'
+   [TRY 1] pandas engine='c' ...
+   [OK] engine='c' -> shape (278858, 3)
+   Colonnes : ['User-ID', 'Location', 'Age']
+   Colonnes finales : ['user_id', 'location', 'age']
+   [OK] Charge dans raw_data.users
+
+[INFO] Chargement : Ratings.csv -> table 'ratings'
+   Separateur detecte : ';'
+   [TRY 1] pandas engine='c' ...
+   [OK] engine='c' -> shape (1149780, 3)
+   Colonnes : ['User-ID', 'ISBN', 'Book-Rating']
+   Colonnes finales : ['user_id', 'isbn', 'book_rating']
+   [OK] Charge dans raw_data.ratings
+
+======================================================================
+[DONE] Ingestion terminee avec succes !
+======================================================================
+

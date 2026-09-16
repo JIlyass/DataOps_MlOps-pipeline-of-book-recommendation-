@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+.env
+.env.*
+!.env.example
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Local logs and runtime files
+logs/
+*.log
+
+# Datasets and local databases
+*.csv
+*.duckdb
+*.db
+*.sqlite
+*.sqlite3
+/data/raw/
+/data/Book reviews/
+/mlops/training/data/
+
+# MLflow local state and generated artifacts
+/mlflow_data/
+/mlruns/
+/mlartifacts/
+
+# dbt generated files
+/dataops/dbt_project/book_transform/target/
+/dataops/dbt_project/book_transform/logs/
+
+# Dagster local state
+/dataops/dagster_project/.dagster/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
