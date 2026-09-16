@@ -21,7 +21,7 @@ services:
       dockerfile: docker/Dockerfile.dataops
     command: dagster-webserver -h 0.0.0.0 -p 3000 -m book_pipeline.definitions
     ports:
-      - "3000:3000"
+      - "5103:3000"
     depends_on:
       mlflow:
         condition: service_healthy
