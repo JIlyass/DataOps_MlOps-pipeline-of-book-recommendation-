@@ -40,13 +40,13 @@ dagster_home/
 ## Premier lancement
 
 Si le stack reste en `restarting` avec l'erreur `alembic_version has more than
-one head present`, arrêter uniquement les services Dagster et supprimer leur
-ancienne base de schedules :
+one head present`, le Compose utilise le nouveau dossier `dagster_home_v2` et
+recrée automatiquement une instance Dagster propre au prochain redéploiement.
+L'ancien dossier `dagster_home` est conservé et aucune commande serveur n'est
+nécessaire.
 
 ```bash
-docker compose stop dagster-webserver dagster-daemon
-rm -f dagster_home/schedules/schedules.db
-docker compose up -d dagster-webserver dagster-daemon
+docker compose up --build -d dagster-webserver dagster-daemon
 ```
 
 Cette opération ne supprime ni DuckDB, ni MLflow, ni le modèle enregistré.
