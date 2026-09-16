@@ -39,6 +39,18 @@ dagster_home/
 
 ## Premier lancement
 
+Si le stack reste en `restarting` avec l'erreur `alembic_version has more than
+one head present`, arrêter uniquement les services Dagster et supprimer leur
+ancienne base de schedules :
+
+```bash
+docker compose stop dagster-webserver dagster-daemon
+rm -f dagster_home/schedules/schedules.db
+docker compose up -d dagster-webserver dagster-daemon
+```
+
+Cette opération ne supprime ni DuckDB, ni MLflow, ni le modèle enregistré.
+
 1. Vérifier que les quatre conteneurs sont `Up`.
 2. Ouvrir Dagster sur le port `3000`.
 3. Lancer une première exécution de `book_pipeline_job`.

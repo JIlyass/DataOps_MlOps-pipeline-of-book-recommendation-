@@ -1,8 +1,8 @@
 dlt[duckdb]==1.6.0
 setuptools<82
 dbt-duckdb==1.9.0
-dagster
-dagster-webserver
+dagster==1.13.23
+dagster-webserver==1.13.23
 pandas
 numpy
 scikit-learn

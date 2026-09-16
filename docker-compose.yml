@@ -32,6 +32,11 @@ services:
       - ./data:/opt/project/data
       - ./mlops/training/data:/opt/project/mlops/training/data
       - ./dagster_home:/opt/dagster
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:3000/server_info')"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
 
   dagster-daemon:
     restart: unless-stopped
@@ -41,6 +46,8 @@ services:
     command: dagster-daemon run -m book_pipeline.definitions
     depends_on:
       mlflow:
+        condition: service_healthy
+      dagster-webserver:
         condition: service_healthy
     environment:
       DAGSTER_HOME: /opt/dagster
