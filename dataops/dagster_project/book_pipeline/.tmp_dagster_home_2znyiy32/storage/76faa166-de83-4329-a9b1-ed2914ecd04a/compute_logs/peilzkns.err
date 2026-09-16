@@ -1,8 +1,0 @@
-[32m2026-09-16 13:56:26 +0100[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 76faa166-de83-4329-a9b1-ed2914ecd04a - 46936 - LOGS_CAPTURED - Capturing logs for process (pid: 46936).
-[32m2026-09-16 13:56:26 +0100[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 76faa166-de83-4329-a9b1-ed2914ecd04a - 46936 - dbt_run - STEP_START - Started execution of step "dbt_run".
-[32m2026-09-16 13:56:26 +0100[0m - dagster - [34mINFO[0m - __ASSET_JOB - 76faa166-de83-4329-a9b1-ed2914ecd04a - dbt_run - Etape 2/3 : dbt run
-[32m2026-09-16 13:56:34 +0100[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 76faa166-de83-4329-a9b1-ed2914ecd04a - 46936 - dbt_run - STEP_OUTPUT - Yielded output "result" of type "String". (Type check passed).
-[32m2026-09-16 13:56:34 +0100[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 76faa166-de83-4329-a9b1-ed2914ecd04a - dbt_run - Writing file at: /home/ilyass/S2-Master/MLOps_DataOps/Project_v2/dataops/dagster_project/book_pipeline/.tmp_dagster_home_2znyiy32/storage/dbt_run using PickledObjectFilesystemIOManager...
-[32m2026-09-16 13:56:34 +0100[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 76faa166-de83-4329-a9b1-ed2914ecd04a - 46936 - dbt_run - ASSET_MATERIALIZATION - Materialized value dbt_run.
-[32m2026-09-16 13:56:35 +0100[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 76faa166-de83-4329-a9b1-ed2914ecd04a - 46936 - dbt_run - HANDLED_OUTPUT - Handled output "result" using IO manager "io_manager"
-[32m2026-09-16 13:56:35 +0100[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 76faa166-de83-4329-a9b1-ed2914ecd04a - 46936 - dbt_run - STEP_SUCCESS - Finished execution of step "dbt_run" in 8.8s.

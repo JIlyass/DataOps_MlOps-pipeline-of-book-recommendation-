@@ -1,8 +1,0 @@
-[32m2026-09-16 13:56:15 +0100[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 76faa166-de83-4329-a9b1-ed2914ecd04a - 46562 - LOGS_CAPTURED - Capturing logs for process (pid: 46562).
-[32m2026-09-16 13:56:15 +0100[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 76faa166-de83-4329-a9b1-ed2914ecd04a - 46562 - raw_ingestion - STEP_START - Started execution of step "raw_ingestion".
-[32m2026-09-16 13:56:15 +0100[0m - dagster - [34mINFO[0m - __ASSET_JOB - 76faa166-de83-4329-a9b1-ed2914ecd04a - raw_ingestion - Etape 1/3 : Ingestion dlt
-[32m2026-09-16 13:56:23 +0100[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 76faa166-de83-4329-a9b1-ed2914ecd04a - 46562 - raw_ingestion - STEP_OUTPUT - Yielded output "result" of type "String". (Type check passed).
-[32m2026-09-16 13:56:23 +0100[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 76faa166-de83-4329-a9b1-ed2914ecd04a - raw_ingestion - Writing file at: /home/ilyass/S2-Master/MLOps_DataOps/Project_v2/dataops/dagster_project/book_pipeline/.tmp_dagster_home_2znyiy32/storage/raw_ingestion using PickledObjectFilesystemIOManager...
-[32m2026-09-16 13:56:24 +0100[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 76faa166-de83-4329-a9b1-ed2914ecd04a - 46562 - raw_ingestion - ASSET_MATERIALIZATION - Materialized value raw_ingestion.
-[32m2026-09-16 13:56:24 +0100[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 76faa166-de83-4329-a9b1-ed2914ecd04a - 46562 - raw_ingestion - HANDLED_OUTPUT - Handled output "result" using IO manager "io_manager"
-[32m2026-09-16 13:56:24 +0100[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 76faa166-de83-4329-a9b1-ed2914ecd04a - 46562 - raw_ingestion - STEP_SUCCESS - Finished execution of step "raw_ingestion" in 8.56s.
