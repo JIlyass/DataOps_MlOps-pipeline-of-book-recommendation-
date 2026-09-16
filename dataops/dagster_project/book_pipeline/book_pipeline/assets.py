@@ -13,6 +13,8 @@ from dagster import asset, AssetExecutionContext
 PROJECT_ROOT = Path(__file__).resolve().parents[4]
 DBT_PROJECT_DIR = PROJECT_ROOT / "dataops" / "dbt_project" / "book_transform"
 INGEST_SCRIPT = PROJECT_ROOT / "dataops" / "ingestion" / "ingest.py"
+PREPARE_DATA_SCRIPT = PROJECT_ROOT / "mlops" / "training" / "prepare_data.py"
+TRAIN_SCRIPT = PROJECT_ROOT / "mlops" / "training" / "train.py"
 DBT_EXECUTABLE = shutil.which("dbt")
 
 
@@ -68,6 +70,8 @@ def raw_ingestion(context: AssetExecutionContext) -> str:
 )
 def dbt_run(context: AssetExecutionContext) -> str:
     context.log.info("Etape 2/3 : dbt run")
+    if DBT_EXECUTABLE is None:
+        raise RuntimeError("dbt executable introuvable dans l'image DataOps")
     run_command(
         [DBT_EXECUTABLE, "run"],
         cwd=DBT_PROJECT_DIR,
@@ -88,3 +92,22 @@ def dbt_test(context: AssetExecutionContext) -> str:
         step_name="dbt test",
     )
     return "Tests qualite passes"
+
+
+@asset(
+    deps=[dbt_test],
+    description="Preparation des donnees et entrainement du modele dans MLflow.",
+)
+def model_training(context: AssetExecutionContext) -> str:
+    context.log.info("Etape 4/4 : preparation et entrainement du modele")
+    run_command(
+        [sys.executable, str(PREPARE_DATA_SCRIPT)],
+        cwd=PROJECT_ROOT,
+        step_name="preparation des donnees ML",
+    )
+    run_command(
+        [sys.executable, str(TRAIN_SCRIPT)],
+        cwd=PROJECT_ROOT,
+        step_name="entrainement du modele",
+    )
+    return "Modele entraine et enregistre dans MLflow"

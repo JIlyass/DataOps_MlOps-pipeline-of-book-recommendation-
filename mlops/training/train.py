@@ -11,7 +11,7 @@ import os
 def train_model():
     print("Démarrage de l'entraînement MLOps (avec scikit-learn)...")
     
-    mlflow.set_tracking_uri("http://localhost:5101")
+    mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "http://localhost:5101"))
     mlflow.set_experiment("book-recommender-sklearn-proxy")
     
     data_dir = os.path.join(os.path.dirname(__file__), "data")

@@ -16,14 +16,20 @@ MODEL_URI = "models:/book-recommender-model/latest"
 
 model = None
 
-@app.on_event("startup")
-def load_model():
+def load_model() -> bool:
     global model
     try:
         model = mlflow.sklearn.load_model(MODEL_URI)
         print("Modèle chargé avec succès depuis MLflow.")
+        return True
     except Exception as e:
-        print(f"Attention: Impossible de charger le modèle au démarrage. Assurez-vous d'avoir entraîné le modèle (train.py). Erreur: {e}")
+        print(f"Modèle indisponible dans MLflow : {e}")
+        return False
+
+
+@app.on_event("startup")
+def load_model_at_startup():
+    load_model()
 
 class PredictionRequest(BaseModel):
     user_id: int
@@ -47,11 +53,15 @@ async def add_process_time_header(request: Request, call_next):
 @app.get("/health")
 def health():
     if model is None:
+        load_model()
+    if model is None:
         return {"status": "degraded", "message": "Model not loaded"}
     return {"status": "ok"}
 
 @app.post("/predict", response_model=PredictionResponse)
 def predict(req: PredictionRequest):
+    if model is None:
+        load_model()
     if model is None:
         raise HTTPException(status_code=503, detail="Modèle non disponible.")
     

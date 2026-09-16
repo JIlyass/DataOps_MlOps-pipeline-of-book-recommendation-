@@ -1,21 +1,65 @@
 services:
   mlflow:
-    image: ghcr.io/mlflow/mlflow:latest
+    image: ghcr.io/mlflow/mlflow:v2.18.0
+    restart: unless-stopped
     ports:
       - "5101:5000"
-    command: mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri sqlite:///mlflow.db --artifacts-destination /mlartifacts --serve-artifacts --allowed-hosts "*"
+    command: mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri sqlite:////mlflow/mlflow.db --artifacts-destination /mlartifacts --serve-artifacts
     volumes:
       - ./mlflow_data:/mlartifacts
-      - ./mlruns:/mlruns
+      - ./mlflow_db:/mlflow
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  dagster-webserver:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dataops
+    command: dagster-webserver -h 0.0.0.0 -p 3000 -m book_pipeline.definitions
+    ports:
+      - "3000:3000"
+    depends_on:
+      mlflow:
+        condition: service_healthy
+    environment:
+      DAGSTER_HOME: /opt/dagster
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+    volumes:
+      - ./data:/opt/project/data
+      - ./mlops/training/data:/opt/project/mlops/training/data
+      - ./dagster_home:/opt/dagster
+
+  dagster-daemon:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dataops
+    command: dagster-daemon run -m book_pipeline.definitions
+    depends_on:
+      mlflow:
+        condition: service_healthy
+    environment:
+      DAGSTER_HOME: /opt/dagster
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+    volumes:
+      - ./data:/opt/project/data
+      - ./mlops/training/data:/opt/project/mlops/training/data
+      - ./dagster_home:/opt/dagster
 
   api:
+    restart: unless-stopped
     build:
       context: .
       dockerfile: docker/Dockerfile.api
     ports:
       - "5102:8000"
     depends_on:
-      - mlflow
+      mlflow:
+        condition: service_healthy
     environment:
       - MLFLOW_TRACKING_URI=http://mlflow:5000
     volumes:

@@ -38,6 +38,7 @@ logs/
 
 # Dagster local state
 /dataops/dagster_project/.dagster/
+/dagster_home/
 
 # OS and editor files
 .DS_Store

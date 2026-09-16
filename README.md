@@ -3,7 +3,7 @@
 Système de recommandation de livres basé sur le dataset **Book-Crossing**, construit dans le cadre du module **MLOps & DataOps**.
 
 ## 🏗️ Architecture DataOps
-CSV (data/raw) → dlt → DuckDB → dbt → Tests qualité → Dagster
+CSV (data/raw) → dlt → DuckDB → dbt → Tests qualité → entraînement ML → MLflow → FastAPI
 
 text
 
@@ -45,6 +45,23 @@ bash
 cd dataops/dagster_project/book_pipeline
 dagster dev -m book_pipeline.definitions
 Puis ouvrir http://localhost:3000 et cliquer sur Materialize all.
+
+### Déploiement Docker avec Dagster
+
+```bash
+docker compose up --build -d
+```
+
+- Dagster : http://localhost:3000
+- MLflow : http://localhost:5101
+- FastAPI : http://localhost:5102/docs
+
+Le schedule Dagster lance le job chaque jour à 02:00 UTC. Pour le premier
+lancement, activez le schedule dans Dagster ou matérialisez le job manuellement.
+
+GitHub Actions valide le code et construit les images sur chaque push vers `main`.
+Pour déclencher un déploiement Komodo, ajoutez le secret GitHub
+`KOMODO_DEPLOY_WEBHOOK_URL` avec l'URL webhook du déploiement Komodo.
 
 🧱 Modèles dbt
 Modèle	Type	Description
@@ -94,4 +111,4 @@ MLOPS ✅✅✅✅✅✅⬜⬜ 80%
 
 text
 
----
+---

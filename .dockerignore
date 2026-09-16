@@ -1,0 +1,11 @@
+.git
+.github
+.venv
+__pycache__
+*.pyc
+mlflow_data
+mlflow_db
+mlruns
+dagster_home
+dataops/dbt_project/book_transform/target
+dataops/dbt_project/book_transform/logs
