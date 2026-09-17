@@ -68,7 +68,21 @@ services:
       mlflow:
         condition: service_healthy
     environment:
-      - MLFLOW_TRACKING_URI=http://mlflow:5000
+      MLFLOW_TRACKING_URI: http://mlflow:5000
     volumes:
       - ./data:/app/data
       - ./mlflow_data:/mlartifacts
+
+  monitoring:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.monitoring
+    container_name: book-recommender-monitoring
+    depends_on:
+      api:
+        condition: service_started
+    environment:
+      API_URL: http://api:8000
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped

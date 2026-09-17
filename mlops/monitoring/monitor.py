@@ -12,7 +12,7 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
-API_URL = "http://localhost:8000"
+API_URL = os.getenv("API_URL", "http://localhost:5102")
 
 def check_api_health():
     """Vérifie si l'API est disponible et enregistre le temps de réponse."""
