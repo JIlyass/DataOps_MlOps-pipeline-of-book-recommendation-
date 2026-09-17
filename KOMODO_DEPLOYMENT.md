@@ -24,6 +24,7 @@ docker compose up --build -d
 Les services sont :
 
 - `api` : port `5102`
+- `frontend` : port `5104`
 - `mlflow` : port `5101`
 - `dagster-webserver` : port `3000`
 - `dagster-daemon` : service interne

@@ -1,0 +1,9 @@
+FROM nginx:1.27-alpine
+
+COPY front-end/index.html /usr/share/nginx/html/index.html
+COPY front-end/styles.css /usr/share/nginx/html/styles.css
+COPY front-end/app.js /usr/share/nginx/html/app.js
+COPY front-end/nginx.conf /etc/nginx/conf.d/default.conf
+COPY data/raw/Books.csv /usr/share/nginx/html/catalog/Books.csv
+
+EXPOSE 80

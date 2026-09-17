@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Bookwise, prédiction de notes de livres par apprentissage automatique." />
+    <title>Bookwise | Prédiction de notes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { ink: '#17212b', paper: '#f6f3ec', coral: '#f16b52', sage: '#9ab4a2' },
+            fontFamily: { display: ['Georgia', 'serif'], sans: ['ui-sans-serif', 'system-ui'] }
+          }
+        }
+      };
+    </script>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="bg-paper text-ink font-sans">
+    <header class="border-b border-ink/10 bg-paper/90 backdrop-blur sticky top-0 z-20">
+      <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5" aria-label="Navigation principale">
+        <a class="flex items-center gap-3 font-semibold tracking-tight" href="#home" data-route="home">
+          <span class="brand-mark">B</span>
+          <span>bookwise</span>
+        </a>
+        <div class="flex items-center gap-2 text-sm font-medium">
+          <a class="nav-link is-active" href="#home" data-route="home">Accueil</a>
+          <a class="nav-link" href="#predict" data-route="predict">Prédire</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="page-section mx-auto max-w-6xl px-6 pb-24 pt-16 lg:pt-24">
+        <div class="grid items-end gap-12 lg:grid-cols-[1.1fr_.9fr]">
+          <div class="reveal">
+            <p class="eyebrow">Votre prochaine lecture, avec un peu de science</p>
+            <h1 class="mt-5 max-w-3xl font-display text-5xl leading-[.98] tracking-tight sm:text-7xl">Une note avant de tourner la première page.</h1>
+            <p class="mt-7 max-w-xl text-lg leading-8 text-ink/65">Bookwise estime la note qu’un utilisateur pourrait donner à un livre à partir des habitudes de lecteurs et du titre choisi.</p>
+            <a href="#predict" data-route="predict" class="button button-primary mt-9 inline-flex">Lancer une prédiction <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="paper-stack reveal reveal-delay relative min-h-[310px] overflow-hidden p-8 sm:p-12">
+            <div class="book-cover absolute left-12 top-10 h-56 w-40 -rotate-6 p-5 text-paper"><span class="text-xs uppercase tracking-[.2em]">Bookwise</span><strong class="mt-16 block font-display text-3xl leading-none">The<br />reader's<br />map</strong></div>
+            <div class="book-cover book-cover-alt absolute bottom-8 right-10 h-56 w-40 rotate-6 p-5 text-paper"><span class="text-xs uppercase tracking-[.2em]">Volume 02</span><strong class="mt-16 block font-display text-3xl leading-none">Good<br />stories<br />ahead</strong></div>
+            <div class="absolute bottom-7 left-8 text-xs uppercase tracking-[.22em] text-ink/50">Données · modèle · intuition</div>
+          </div>
+        </div>
+
+        <div class="mt-24 grid gap-5 border-t border-ink/10 pt-8 md:grid-cols-3">
+          <article class="feature reveal"><span class="feature-number">01</span><h2>Choisir</h2><p>Recherchez un livre dans le catalogue Book-Crossing.</p></article>
+          <article class="feature reveal reveal-delay"><span class="feature-number">02</span><h2>Contextualiser</h2><p>Indiquez l’identifiant du lecteur pour personnaliser l’estimation.</p></article>
+          <article class="feature reveal reveal-delay-2"><span class="feature-number">03</span><h2>Découvrir</h2><p>Recevez une note prédite sur une échelle de 1 à 10.</p></article>
+        </div>
+      </section>
+
+      <section id="predict" class="page-section hidden border-t border-ink/10 bg-ink px-6 py-16 text-paper lg:py-24">
+        <div class="mx-auto max-w-6xl">
+          <div class="grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
+            <div class="reveal">
+              <p class="eyebrow text-sage">Le laboratoire</p>
+              <h1 class="mt-5 font-display text-5xl leading-none sm:text-6xl">Quelle note se cache derrière ce livre ?</h1>
+              <p class="mt-6 max-w-md leading-7 text-paper/60">Deux informations suffisent. Le modèle retrouve les signaux appris pendant l’entraînement et vous propose une estimation.</p>
+              <div class="mt-10 border-l border-coral pl-5 text-sm leading-6 text-paper/55">L’estimation est une aide à la découverte, pas une vérité absolue. Les résultats peuvent varier selon les données disponibles.</div>
+            </div>
+
+            <form id="prediction-form" class="form-panel reveal reveal-delay" novalidate>
+              <div class="form-heading"><span>Nouvelle prédiction</span><span class="status-dot" aria-hidden="true"></span></div>
+              <label class="field-label" for="user-id">Identifiant lecteur</label>
+              <input id="user-id" name="user_id" type="number" min="1" step="1" placeholder="ex. 276744" required />
+              <p class="field-hint">Un identifiant numérique du dataset Book-Crossing.</p>
+
+              <label class="field-label mt-7" for="book-search">Livre</label>
+              <input id="book-search" type="search" autocomplete="off" placeholder="Rechercher par titre ou ISBN..." aria-controls="book-select" />
+              <select id="book-select" name="isbn" size="5" required aria-label="Choisir un livre"><option value="">Chargement du catalogue...</option></select>
+              <p id="catalog-status" class="field-hint">Le catalogue se charge à la première ouverture.</p>
+
+              <div id="form-error" class="alert alert-error hidden" role="alert"></div>
+              <div id="result" class="result hidden" aria-live="polite"></div>
+              <div class="mt-8 flex flex-wrap gap-3">
+                <button class="button button-coral" type="submit">Calculer la note <span aria-hidden="true">→</span></button>
+                <button class="button button-ghost" type="reset">Réinitialiser</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="border-t border-ink/10 px-6 py-7 text-center text-xs uppercase tracking-[.18em] text-ink/45">Bookwise · Projet MLOps & DataOps</footer>
+    <script src="/app.js" defer></script>
+  </body>
+</html>

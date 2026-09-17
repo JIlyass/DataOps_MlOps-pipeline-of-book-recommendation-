@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, Request
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import mlflow
 import time
@@ -6,6 +7,17 @@ import os
 import pandas as pd
 
 app = FastAPI(title="Book Recommender API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5104",
+        "http://127.0.0.1:5104",
+        "http://exp.s3.fsbm.ma:5104",
+    ],
+    allow_methods=["POST", "GET"],
+    allow_headers=["Content-Type"],
+)
 
 # Configuration de MLflow et du modèle
 # Au démarrage de l'API, on configure l'URI et on essaie de charger le modèle.

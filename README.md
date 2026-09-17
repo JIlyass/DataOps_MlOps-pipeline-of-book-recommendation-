@@ -55,6 +55,7 @@ docker compose up --build -d
 - Dagster : http://localhost:3000
 - MLflow : http://localhost:5101
 - FastAPI : http://localhost:5102/docs
+- Front-end : http://localhost:5104
 
 Le schedule Dagster lance le job chaque jour à 02:00 UTC. Pour le premier
 lancement, activez le schedule dans Dagster ou matérialisez le job manuellement.
@@ -111,4 +112,4 @@ MLOPS ✅✅✅✅✅✅⬜⬜ 80%
 
 text
 
----
+---

@@ -1,0 +1,45 @@
+:root { --ink: #17212b; --paper: #f6f3ec; --coral: #f16b52; --sage: #9ab4a2; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; }
+.font-display { font-family: Georgia, 'Times New Roman', serif; }
+.brand-mark { display: grid; width: 2rem; height: 2rem; place-items: center; border-radius: 50%; background: var(--coral); color: var(--paper); font-family: Georgia, serif; font-size: 1.2rem; }
+.nav-link { border-bottom: 1px solid transparent; padding: .55rem .8rem; transition: color .2s, border-color .2s; }
+.nav-link:hover, .nav-link.is-active { color: var(--coral); border-color: var(--coral); }
+.eyebrow { color: var(--coral); font-size: .72rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
+.paper-stack { background: #dfe6d9; border-radius: 1.5rem; }
+.paper-stack::before { position: absolute; inset: 1.25rem; border: 1px solid rgba(23,33,43,.13); border-radius: 1rem; content: ''; }
+.book-cover { z-index: 1; background: #42615c; box-shadow: 12px 16px 24px rgba(23,33,43,.17); }
+.book-cover-alt { background: var(--coral); }
+.button { align-items: center; border: 1px solid transparent; border-radius: 999px; cursor: pointer; display: inline-flex; font-size: .9rem; font-weight: 700; gap: .75rem; justify-content: center; min-height: 3rem; padding: .75rem 1.25rem; transition: transform .2s, background .2s, color .2s; }
+.button:hover { transform: translateY(-2px); }
+.button-primary { background: var(--ink); color: var(--paper); }
+.button-primary:hover { background: var(--coral); }
+.button-coral { background: var(--coral); color: var(--paper); }
+.button-coral:hover { background: #ff856c; }
+.button-ghost { border-color: rgba(246,243,236,.27); color: var(--paper); }
+.button-ghost:hover { background: rgba(246,243,236,.1); }
+.feature { border-top: 1px solid rgba(23,33,43,.18); padding-top: 1rem; }
+.feature-number { color: var(--coral); font-size: .7rem; font-weight: 700; letter-spacing: .15em; }
+.feature h2 { margin: 1.8rem 0 .55rem; font-family: Georgia, serif; font-size: 1.45rem; }
+.feature p { color: rgba(23,33,43,.6); line-height: 1.65; margin: 0; max-width: 18rem; }
+.form-panel { background: #22303b; border: 1px solid rgba(246,243,236,.15); border-radius: 1.25rem; padding: clamp(1.25rem, 4vw, 2.5rem); box-shadow: 0 24px 60px rgba(0,0,0,.2); }
+.form-heading { align-items: center; border-bottom: 1px solid rgba(246,243,236,.15); display: flex; font-size: .78rem; font-weight: 700; justify-content: space-between; letter-spacing: .16em; margin-bottom: 2rem; padding-bottom: 1rem; text-transform: uppercase; }
+.status-dot { background: var(--sage); border-radius: 50%; box-shadow: 0 0 0 5px rgba(154,180,162,.13); height: .55rem; width: .55rem; }
+.field-label { display: block; font-size: .8rem; font-weight: 700; margin-bottom: .55rem; }
+.form-panel input, .form-panel select { background: #f6f3ec; border: 1px solid transparent; border-radius: .55rem; color: var(--ink); font: inherit; outline: none; padding: .9rem 1rem; width: 100%; }
+.form-panel input:focus, .form-panel select:focus { border-color: var(--coral); box-shadow: 0 0 0 3px rgba(241,107,82,.22); }
+.form-panel select { cursor: pointer; margin-top: .65rem; padding: .35rem; }
+.form-panel option { padding: .65rem; }
+.field-hint { color: rgba(246,243,236,.48); font-size: .75rem; margin: .5rem 0 0; }
+.alert { border-radius: .55rem; font-size: .85rem; margin-top: 1.25rem; padding: .85rem 1rem; }
+.alert-error { background: rgba(241,107,82,.15); color: #ffb0a0; }
+.result { background: #dfe6d9; border-radius: .75rem; color: var(--ink); margin-top: 1.5rem; padding: 1rem 1.15rem; }
+.result-label { color: rgba(23,33,43,.58); font-size: .75rem; text-transform: uppercase; letter-spacing: .12em; }
+.result-rating { color: #315b54; font-family: Georgia, serif; font-size: 3rem; line-height: 1; margin-top: .35rem; }
+.reveal { animation: rise .7s ease both; }
+.reveal-delay { animation-delay: .12s; }
+.reveal-delay-2 { animation-delay: .24s; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+@media (max-width: 640px) { .nav-link { padding-inline: .5rem; } .book-cover { left: 2rem; } .book-cover-alt { right: 2rem; } }

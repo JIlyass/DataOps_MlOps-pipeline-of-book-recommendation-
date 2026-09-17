@@ -73,6 +73,17 @@ services:
       - ./data:/app/data
       - ./mlflow_data:/mlartifacts
 
+  frontend:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.frontend
+    ports:
+      - "5104:80"
+    depends_on:
+      api:
+        condition: service_started
+
   monitoring:
     build:
       context: .
