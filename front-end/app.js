@@ -1,5 +1,5 @@
 const isLocalFrontend = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-const API_BASE = isLocalFrontend ? 'http://localhost:5102' : 'http://exp.s3.fsbm.ma:5102';
+const API_BASE = isLocalFrontend ? 'http://localhost:5102' : '/api';
 const CATALOG_URL = '/catalog/Books.csv';
 const state = { books: [], loaded: false };
 
