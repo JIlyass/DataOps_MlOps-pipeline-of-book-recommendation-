@@ -49,10 +49,17 @@ jobs:
     steps:
       - name: Trigger Komodo deployment
         env:
-          KOMODO_DEPLOY_WEBHOOK_URL: ${{ secrets.KOMODO_DEPLOY_WEBHOOK_URL }}
+          KOMODO_API_KEY: ${{ secrets.KOMODO_API_KEY }}
+          KOMODO_API_SECRET: ${{ secrets.KOMODO_API_SECRET }}
         run: |
-          if [ -z "$KOMODO_DEPLOY_WEBHOOK_URL" ]; then
-            echo "KOMODO_DEPLOY_WEBHOOK_URL is not configured; skipping deployment."
-            exit 0
-          fi
-          curl --fail --show-error --silent -X POST "$KOMODO_DEPLOY_WEBHOOK_URL"
+          curl --fail --show-error --silent \
+            -X POST "https://komodo.s3.fsbm.ma/execute" \
+            -H "Content-Type: application/json" \
+            -H "X-Api-Key: $KOMODO_API_KEY" \
+            -H "X-Api-Secret: $KOMODO_API_SECRET" \
+            --data '{
+              "type": "DeployStack",
+              "params": {
+                "stack": "systeme_de_recommandation_de_livres"
+              }
+            }'
